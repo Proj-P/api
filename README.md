@@ -1,4 +1,4 @@
-![Project P REST API](https://photos-2.dropbox.com/t/2/AACuqeyRCZHBCJGfTdgbwocBeVkksLJ6J9PF4SRVZxvpzA/12/59610199/png/32x32/1/1461470400/0/2/projectp-icon-restapi.png/EPaojC4Y8sgrIAIoAg/PedOhRk2RHqLlWvBIGC2GUlL62PrJd56HYRLuSBFC3M?size_mode=3&size=1280x960)
+![Project P REST API](https://i.imgur.com/pACOiO6.png)
 This repository holds the source code of the RESTful API of [Project P](https://github.com/Proj-P).
 This API provides an interface which other applications can use to access
 monitored data.

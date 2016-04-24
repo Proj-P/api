@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-
 # Copyright 2016 Steven Oud. All rights reserved.
 # Use of this source code is governed by a MIT-style license that can be found
 # in the LICENSE file.
 
-from app import db
+from api import db
 
-class Visit:
+class Visit(db.Model):
     __tablename__ = 'visits'
 
     id = db.Column(db.Integer, primary_key=True)

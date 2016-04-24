@@ -10,7 +10,7 @@ from werkzeug.exceptions import default_exceptions
 # Setup Flask
 app = Flask(__name__)
 app.config.from_object('config')
-#  app.url_map.strict_slashes = False
+app.url_map.strict_slashes = False
 
 # Handle errors in JSON
 def json_error(ex):

@@ -4,6 +4,7 @@
 # in the LICENSE file.
 
 from api import db
+from datetime import datetime
 
 class Visit(db.Model):
     __tablename__ = 'visits'
@@ -14,15 +15,21 @@ class Visit(db.Model):
     duration = db.Column(db.Integer, nullable=False)
 
     def __init__(self, start_time, end_time):
-        self.start_time = start_time
-        self.end_time = end_time
-
-        delta = end_time - start_time
-        self.duration = delta.seconds
+        self.start_time = self._epoch_to_datetime(start_time)
+        self.end_time = self._epoch_to_datetime(end_time)
+        duration_delta = self.end_time - self.start_time
+        self.duration = duration_delta.seconds
 
     def __repr__(self):
-        return 'Visit<{id} {start_time}-{end_time}>'.format({
-            'id': self.id,
-            'start_time': self.start_time,
-            'end_time': self.end_time,
-        })
+        return 'Visit<{id} {start_time}-{end_time}>'.format(
+            id=self.id,
+            start_time=self.start_time,
+            end_time=self.end_time,
+        )
+
+    @property
+    def serialize(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    def _epoch_to_datetime(self, epoch):
+        return datetime.fromtimestamp(float(epoch))

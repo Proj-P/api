@@ -5,24 +5,31 @@
 
 from flask import jsonify, Blueprint, abort, request
 from datetime import datetime, timedelta
-from api.visits.models import Visit
+from api import db
+from .models import Visit
+from .forms import VisitForm
 
 visits = Blueprint('visits', __name__)
 
 @visits.route('/', methods=['POST'])
 def insert():
     """Insert a visit"""
-    return 'TODO'
+    form = VisitForm(csrf_enabled=False)
+
+    if form.validate():
+        visit = Visit(request.form.get('start_time'), request.form.get('end_time'))
+        db.session.add(visit)
+        db.session.commit()
+        return jsonify(), 204 # Insert successful, return no content
+
+    return jsonify(errors=form.errors, success=False), 400
 
 @visits.route('/')
 def all():
-    """Get all visits and filter by offset and limit"""
-    offset = request.args.get('offset') or 0
-    limit = request.args.get('limit') or 0
-    visits = Visit.query.order_by(Visit.start_time)\
-        .limit(limit)\
-        .offset(offset)\
-        .all()
+    """Get all visits"""
+    visits = Visit.query.all()
+    # Make them JSON serializeable
+    visits = [visit.serialize for visit in visits]
 
     return jsonify(data=visits, success=True)
 

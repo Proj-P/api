@@ -38,6 +38,7 @@ def recent():
     """Get all visits from the past day"""
     interval = datetime.now() - timedelta(days=1)
     visits = Visit.query.filter(Visit.start_time >= interval).order_by(Visit.start_time).all()
+    visits = [visit.serialize for visit in visits]
 
     return jsonify(data=visits, success=True)
 
@@ -47,6 +48,6 @@ def visit(id):
     visit = Visit.query.get(id)
 
     if visit:
-        return jsonify(data=visit, success=True)
+        return jsonify(data=visit.serialize, success=True)
 
     abort(404, 'Visit "{}" not found'.format(id))

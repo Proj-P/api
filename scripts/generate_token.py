@@ -26,8 +26,6 @@ def generate_token(name):
     except IntegrityError:
         db.session.rollback()
         sys.stderr.write('Failed to create token: Name {} already exists.\n'.format(name))
-    finally:
-        db.session.close()
         sys.exit(-1)
 
     return token

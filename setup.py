@@ -6,7 +6,7 @@
 
 import re
 import ast
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md', 'r') as f:
     long_description = f.read()
@@ -26,7 +26,7 @@ setup(
     author='Steven Oud',
     author_email='soud@protonmail.com',
     long_description=long_description,
-    packages=['api', 'api.visits'],
+    packages=find_packages(),
     include_package_data=True,
     install_requires=[
         'Flask==0.10.1',

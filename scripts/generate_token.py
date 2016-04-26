@@ -37,14 +37,14 @@ def main():
     args = parser.parse_args()
 
     token = generate_token(args.name)
-    print('''
+    print('''=================================
 Successfully created token!
 
 Name: {}
 Token: {}
 
 Dont forget to save this token in the sensor's configuration file.
-'''.format(token.name, token.token.decode('utf-8')))
+================================='''.format(token.name, token.token.decode('utf-8')))
 
 if __name__ == '__main__':
     main()

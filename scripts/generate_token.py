@@ -32,7 +32,7 @@ def generate_token(name):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('-n', '--name', type=str, required=True,
+    parser.add_argument('name', type=str,
                         help='Name describing a sensor\'s location')
     args = parser.parse_args()
 

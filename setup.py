@@ -40,7 +40,7 @@ setup(
     ],
     entry_points = {
         'console_scripts': [
-            'run_server = api.run:main'
+            'run-server = api.run:main'
         ]
     }
 )

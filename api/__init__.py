@@ -7,9 +7,11 @@ from flask import Flask, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import default_exceptions
 
+__version__ = '0.1'
+
 # Setup Flask
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object('api.config')
 app.url_map.strict_slashes = False
 
 # Handle errors in JSON

@@ -6,7 +6,7 @@
 
 import time
 from flask import jsonify
-from config import HOST, PORT
+from api.config import HOST, PORT
 from api import app
 
 start_time = time.time()
@@ -17,5 +17,8 @@ def index():
         'uptime': time.time() - start_time
     })
 
-if __name__ == '__main__':
+def main():
     app.run(host=HOST, port=PORT)
+
+if __name__ == '__main__':
+    main()

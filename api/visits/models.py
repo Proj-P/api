@@ -4,9 +4,10 @@
 # in the LICENSE file.
 
 from api import db
+from api.models import JSONModel
 from datetime import datetime
 
-class Visit(db.Model):
+class Visit(JSONModel):
     __tablename__ = 'visits'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -26,10 +27,6 @@ class Visit(db.Model):
             start_time=self.start_time,
             end_time=self.end_time,
         )
-
-    @property
-    def serialize(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     def _epoch_to_datetime(self, epoch):
         return datetime.fromtimestamp(float(epoch))

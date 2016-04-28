@@ -7,7 +7,7 @@ from flask import Flask, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import default_exceptions
 
-__version__ = '0.1'
+__version__ = '0.2'
 
 # Setup Flask
 app = Flask(__name__)
@@ -33,7 +33,9 @@ db = SQLAlchemy(app)
 
 # db is defined, we can register blueprints now
 from api.visits import visits
+from api.locations import locations
 app.register_blueprint(visits, url_prefix='/visits')
+app.register_blueprint(locations, url_prefix='/locations')
 
 # Create tables
 db.create_all()

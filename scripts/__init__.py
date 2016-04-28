@@ -5,5 +5,6 @@
 
 from api import db
 from api.tokens.models import Token
+from api.locations.models import Location
 
 db.create_all()

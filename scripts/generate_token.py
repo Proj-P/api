@@ -16,19 +16,26 @@ import argparse
 import sys
 from api import db
 from api.tokens.models import Token
+from api.locations.models import Location
 from sqlalchemy.exc import IntegrityError
 
 def generate_token(name):
-    token = Token(name)
+    # First create a location
+    location = Location(name)
+    db.session.add(location)
+    db.session.flush()
+
+    # Then generate a token
+    token = Token()
+    token.location_id = location.id
     db.session.add(token)
     try:
         db.session.commit()
+        return location
     except IntegrityError:
         db.session.rollback()
         sys.stderr.write('Failed to create token: Name {} already exists.\n'.format(name))
         sys.exit(-1)
-
-    return token
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -36,7 +43,7 @@ def main():
                         help='Name describing a sensor\'s location')
     args = parser.parse_args()
 
-    token = generate_token(args.name)
+    location = generate_token(args.name)
     print('''=================================
 Successfully created token!
 
@@ -44,7 +51,8 @@ Name: {}
 Token: {}
 
 Dont forget to save this token in the sensor's configuration file.
-================================='''.format(token.name, token.token.decode('utf-8')))
+================================='''.format(location.name,
+                                            location.token.hash.decode('utf-8')))
 
 if __name__ == '__main__':
     main()

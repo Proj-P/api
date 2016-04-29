@@ -40,8 +40,8 @@ setup(
     ],
     entry_points = {
         'console_scripts': [
-            'run-server = api.run:main',
-            'generate-token = scripts.generate_token:main'
+            'pp-run-server = api.run:main',
+            'pp-generate-token = scripts.generate_token:main'
         ]
     }
 )

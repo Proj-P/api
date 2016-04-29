@@ -3,11 +3,7 @@
 # Use of this source code is governed by a MIT-style license that can be found
 # in the LICENSE file.
 
-from api import db
-
-class JSONModel(db.Model):
-    __abstract__ = True
-
+class JSONSerializer:
     def serialize(self):
         """
         Serialize turns an SQLAlchemy result into a JSON serializable object

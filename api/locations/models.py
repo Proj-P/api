@@ -4,10 +4,10 @@
 # in the LICENSE file.
 
 from datetime import datetime
-from api.models import JSONModel
+from api.models import JSONSerializer
 from api import db
 
-class Location(JSONModel):
+class Location(db.Model, JSONSerializer):
     __tablename__ = 'locations'
 
     id = db.Column(db.Integer, primary_key=True)

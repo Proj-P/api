@@ -17,7 +17,8 @@ def insert():
     form = VisitForm(csrf_enabled=False)
 
     if form.validate():
-        visit = Visit(request.form.get('start_time'), request.form.get('end_time'))
+        # TODO: token auth and pass location_id based off the token
+        visit = Visit(request.form.get('start_time'), request.form.get('end_time'), 1)
         db.session.add(visit)
         db.session.commit()
         return jsonify(), 204 # Insert successful, return no content

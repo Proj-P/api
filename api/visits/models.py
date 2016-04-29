@@ -4,10 +4,10 @@
 # in the LICENSE file.
 
 from api import db
-from api.models import JSONModel
+from api.models import JSONSerializer
 from datetime import datetime
 
-class Visit(JSONModel):
+class Visit(db.Model, JSONSerializer):
     __tablename__ = 'visits'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -15,11 +15,15 @@ class Visit(JSONModel):
     end_time = db.Column(db.DateTime, nullable=False)
     duration = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, start_time, end_time):
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+
+    def __init__(self, start_time, end_time, location_id):
         self.start_time = self._epoch_to_datetime(start_time)
         self.end_time = self._epoch_to_datetime(end_time)
         duration_delta = self.end_time - self.start_time
         self.duration = duration_delta.seconds
+
+        self.location_id = location_id
 
     def __repr__(self):
         return 'Visit<{id} {start_time}-{end_time}>'.format(

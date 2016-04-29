@@ -11,6 +11,9 @@ PORT = 8080
 # Debug state
 DEBUG = True
 
+# No sessions/cookies in play, no need for CSRF protection
+WTF_CSRF_ENABLED = False
+
 # Application root directory
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 

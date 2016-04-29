@@ -14,7 +14,7 @@ visits = Blueprint('visits', __name__)
 @visits.route('/', methods=['POST'])
 def insert():
     """Insert a visit"""
-    form = VisitForm(csrf_enabled=False)
+    form = VisitForm()
 
     if form.validate():
         # TODO: token auth and pass location_id based off the token

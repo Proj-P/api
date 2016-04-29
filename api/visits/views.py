@@ -21,7 +21,8 @@ def insert():
         visit = Visit(request.form.get('start_time'), request.form.get('end_time'), 1)
         db.session.add(visit)
         db.session.commit()
-        return jsonify(), 204 # Insert successful, return no content
+
+        return jsonify(), 201, {'Location': '/visits/' + str(visit.id)}
 
     return jsonify(errors=form.errors), 400
 

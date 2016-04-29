@@ -16,10 +16,10 @@ def all():
     locations = Location.query.all()
     locations = [location.serialize() for location in locations]
 
-    return jsonify(data=locations, success=True)
+    return jsonify(data=locations)
 
 @locations.route('/<string:token>/toggle', methods=['PUT'])
 def update(token):
     """Update the status of a location"""
     # TODO
-    return jsonify(data=token, success=True)
+    return jsonify(token=token)

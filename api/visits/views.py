@@ -23,7 +23,7 @@ def insert():
         db.session.commit()
         return jsonify(), 204 # Insert successful, return no content
 
-    return jsonify(errors=form.errors, success=False), 400
+    return jsonify(errors=form.errors), 400
 
 @visits.route('/')
 def all():
@@ -31,7 +31,7 @@ def all():
     visits = Visit.query.all()
     visits = [visit.serialize() for visit in visits]
 
-    return jsonify(data=visits, success=True)
+    return jsonify(data=visits)
 
 @visits.route('/recent')
 def recent():
@@ -40,7 +40,7 @@ def recent():
     visits = Visit.query.filter(Visit.start_time >= interval).order_by(Visit.start_time).all()
     visits = [visit.serialize() for visit in visits]
 
-    return jsonify(data=visits, success=True)
+    return jsonify(data=visists)
 
 @visits.route('/<int:id>')
 def visit(id):
@@ -48,6 +48,6 @@ def visit(id):
     visit = Visit.query.get(id)
 
     if visit:
-        return jsonify(data=visit.serialize(), success=True)
+        return jsonify(data=visit.serialize())
 
     abort(404, 'Visit "{}" not found'.format(id))

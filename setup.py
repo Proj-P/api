@@ -21,7 +21,7 @@ setup(
     version=version,
     description='This API is part of Project P and provides an interface which'
                 ' other applications can use to access monitored data.',
-    url='https://github.com/Proj-P/api',
+    url='https://github.com/Proj-P/project-p-api',
     license='MIT',
     author='Steven Oud',
     author_email='soud@protonmail.com',

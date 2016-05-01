@@ -23,19 +23,20 @@ def generate_token(name):
     # First create a location
     location = Location(name)
     db.session.add(location)
-    db.session.flush()
+    try:
+        db.session.flush()
+    except IntegrityError:
+        db.session.rollback()
+        sys.stderr.write('Failed to create token: Name {} already exists.\n'.format(name))
+        sys.exit(-1)
 
     # Then generate a token
     token = Token()
     token.location_id = location.id
     db.session.add(token)
-    try:
-        db.session.commit()
-        return location
-    except IntegrityError:
-        db.session.rollback()
-        sys.stderr.write('Failed to create token: Name {} already exists.\n'.format(name))
-        sys.exit(-1)
+    db.session.commit()
+
+    return location
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -52,7 +53,7 @@ Token: {}
 
 Dont forget to save this token in the sensor's configuration file.
 ================================='''.format(location.name,
-                                            location.token.hash.decode('utf-8')))
+                                            location.token.hash))
 
 if __name__ == '__main__':
     main()

@@ -26,7 +26,7 @@ class Visit(db.Model, JSONSerializer):
         self.location_id = location_id
 
     def __repr__(self):
-        return 'Visit<{id} {start_time}-{end_time}>'.format(
+        return '<Visit {id} {start_time}-{end_time}>'.format(
             id=self.id,
             start_time=self.start_time,
             end_time=self.end_time,

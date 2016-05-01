@@ -6,12 +6,14 @@
 from flask import jsonify, Blueprint, abort, request
 from datetime import datetime, timedelta
 from api import db
+from api.auth import requires_auth
 from .models import Visit
 from .forms import VisitForm
 
 visits = Blueprint('visits', __name__)
 
 @visits.route('/', methods=['POST'])
+@requires_auth
 def insert():
     """Insert a visit"""
     form = VisitForm()

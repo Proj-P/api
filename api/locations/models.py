@@ -21,4 +21,4 @@ class Location(db.Model, JSONSerializer):
         self.name = name
 
     def __repr__(self):
-        return 'Location<{}>'.format(self.name)
+        return '<Location {}>'.format(self.name)

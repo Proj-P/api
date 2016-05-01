@@ -17,7 +17,6 @@ app.url_map.strict_slashes = False
 # Handle errors in JSON
 def json_error(ex):
     return jsonify({
-        'success': False,
         'error': {
             'code': ex.code,
             'message': ex.description
@@ -34,6 +33,7 @@ db = SQLAlchemy(app)
 # db is defined, we can register blueprints now
 from api.visits import visits
 from api.locations import locations
+
 app.register_blueprint(visits, url_prefix='/visits')
 app.register_blueprint(locations, url_prefix='/locations')
 

@@ -6,6 +6,7 @@
 from flask import jsonify, Blueprint
 from .models import Location
 from api.tokens.models import Token
+from api.auth import requires_auth
 from api import db
 
 locations = Blueprint('locations', __name__)
@@ -18,8 +19,9 @@ def all():
 
     return jsonify(data=locations)
 
-@locations.route('/<string:token>/toggle', methods=['PUT'])
-def update(token):
+@locations.route('/toggle', methods=['PUT'])
+@requires_auth
+def update():
     """Update the status of a location"""
     # TODO
-    return jsonify(token=token)
+    return jsonify('ok')

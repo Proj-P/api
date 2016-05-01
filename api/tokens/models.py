@@ -18,8 +18,8 @@ class Token(db.Model):
         self.hash = self._generate_token(16)
 
     def __repr__(self):
-        return 'Token<{location}:{hash}>'.format(location=self.location_id,
+        return '<Token {location}:{hash}>'.format(location=self.location_id,
                                                  hash=self.hash)
 
     def _generate_token(self, length):
-        return hexlify(urandom(length))
+        return hexlify(urandom(length)).decode('utf-8')

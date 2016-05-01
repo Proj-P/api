@@ -53,4 +53,4 @@ def visit(id):
     if visit:
         return jsonify(data=visit.serialize())
 
-    abort(404, 'Visit "{}" not found'.format(id))
+    abort(404, 'Visit "{}" not found.'.format(id))

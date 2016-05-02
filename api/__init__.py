@@ -7,7 +7,7 @@ from flask import Flask, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import default_exceptions
 
-__version__ = '0.2'
+__version__ = '0.3'
 
 # Setup Flask
 app = Flask(__name__)

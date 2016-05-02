@@ -36,7 +36,8 @@ def update():
     hash = request.headers.get('authorization')
     location = Location.query\
         .join(Location.token)\
-        .filter_by(hash=hash).first()
+        .filter_by(hash=hash)\
+        .first()
 
     location.occupied = not location.occupied
     db.session.commit()

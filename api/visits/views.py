@@ -7,6 +7,7 @@ from flask import jsonify, Blueprint, abort, request
 from datetime import datetime, timedelta
 from api import db
 from api.auth import requires_auth
+from api.locations.models import Location
 from .models import Visit
 from .forms import VisitForm
 
@@ -19,8 +20,15 @@ def insert():
     form = VisitForm()
 
     if form.validate():
-        # TODO: token auth and pass location_id based off the token
-        visit = Visit(request.form.get('start_time'), request.form.get('end_time'), 1)
+        # Get location based on token
+        hash = request.headers.get('authorization')
+        location = Location.query\
+            .join(Location.token)\
+            .filter_by(hash=hash)\
+            .first()
+
+        visit = Visit(request.form.get('start_time'),
+                      request.form.get('end_time'), location.id)
         db.session.add(visit)
         db.session.commit()
 

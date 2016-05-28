@@ -54,7 +54,7 @@ def recent():
             .all()
     visits = [visit.serialize() for visit in visits]
 
-    return jsonify(data=visists)
+    return jsonify(data=visits)
 
 @visits.route('/<int:id>')
 def visit(id):

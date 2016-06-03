@@ -22,9 +22,9 @@ def insert():
     if form.validate():
         # Get location based on token
         hash = request.headers.get('authorization')
-        location = Location.query\
-            .join(Location.token)\
-            .filter_by(hash=hash)\
+        location = Location.query \
+            .join(Location.token) \
+            .filter_by(hash=hash) \
             .first()
 
         visit = Visit(request.form.get('start_time'),
@@ -48,9 +48,9 @@ def all():
 def recent():
     """Get all visits from the past day"""
     interval = datetime.now() - timedelta(days=1)
-    visits = Visit.query\
-            .filter(Visit.start_time >= interval)\
-            .order_by(Visit.start_time)\
+    visits = Visit.query                          \
+            .filter(Visit.start_time >= interval) \
+            .order_by(Visit.start_time)           \
             .all()
     visits = [visit.serialize() for visit in visits]
 

@@ -34,9 +34,9 @@ def status(location_id):
 def update():
     """Toggle the status of a location"""
     hash = request.headers.get('authorization')
-    location = Location.query\
-        .join(Location.token)\
-        .filter_by(hash=hash)\
+    location = Location.query \
+        .join(Location.token) \
+        .filter_by(hash=hash) \
         .first()
 
     location.occupied = not location.occupied

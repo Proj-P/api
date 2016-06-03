@@ -7,7 +7,7 @@
 import time
 from flask import jsonify
 from api.config import HOST, PORT
-from api import app
+from api import app, socketio
 
 start_time = time.time()
 
@@ -18,7 +18,7 @@ def index():
     })
 
 def main():
-    app.run(host=HOST, port=PORT)
+    socketio.run(app, host=HOST, port=PORT)
 
 if __name__ == '__main__':
     main()

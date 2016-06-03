@@ -7,7 +7,7 @@ from flask import jsonify, Blueprint, abort, request
 from .models import Location
 from api.tokens.models import Token
 from api.auth import requires_auth
-from api import db
+from api import db, socketio
 
 locations = Blueprint('locations', __name__)
 
@@ -41,5 +41,8 @@ def update():
 
     location.occupied = not location.occupied
     db.session.commit()
+
+    socketio.emit('location', {'occupied': location.occupied}, broadcast=True,
+                  namespace='/ws')
 
     return jsonify(), 204

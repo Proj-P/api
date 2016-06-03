@@ -5,7 +5,7 @@
 
 from flask import jsonify, Blueprint, abort, request
 from datetime import datetime, timedelta
-from api import db
+from api import db, socketio
 from api.auth import requires_auth
 from api.locations.models import Location
 from .models import Visit
@@ -19,22 +19,26 @@ def insert():
     """Insert a visit"""
     form = VisitForm()
 
-    if form.validate():
-        # Get location based on token
-        hash = request.headers.get('authorization')
-        location = Location.query \
-            .join(Location.token) \
-            .filter_by(hash=hash) \
-            .first()
+    if not form.validate():
+        return jsonify(errors=form.errors), 400
 
-        visit = Visit(request.form.get('start_time'),
-                      request.form.get('end_time'), location.id)
-        db.session.add(visit)
-        db.session.commit()
+    # Get location based on token
+    hash = request.headers.get('authorization')
+    location = Location.query \
+        .join(Location.token) \
+        .filter_by(hash=hash) \
+        .first()
 
-        return jsonify(), 201, {'Location': '/visits/' + str(visit.id)}
+    visit = Visit(request.form.get('start_time'), request.form.get('end_time'),
+                  location.id)
+    db.session.add(visit)
+    db.session.commit()
 
-    return jsonify(errors=form.errors), 400
+    socketio.emit('visit', {'visit': visit.serialize()}, broadcast=True,
+                  namespace='/ws')
+
+    return jsonify(), 201, {'Location': '/visits/' + str(visit.id)}
+
 
 @visits.route('/')
 def all():

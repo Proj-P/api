@@ -38,6 +38,7 @@ setup(
         'MarkupSafe==0.23',
         'SQLAlchemy==1.0.12',
         'Werkzeug==0.11.10',
+        'Flask-Cors==2.1.2',
         'WTForms==2.1'
     ],
     entry_points = {

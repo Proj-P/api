@@ -4,15 +4,21 @@
 # in the LICENSE file.
 
 from flask import Flask, jsonify
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO
+from flask_cors import CORS
 from werkzeug.exceptions import default_exceptions
 
-__version__ = '0.3'
+__version__ = '0.4'
 
 # Setup Flask
 app = Flask(__name__)
 app.config.from_object('api.config')
 app.url_map.strict_slashes = False
+
+CORS(app)
+
+socketio = SocketIO(app)
 
 # Handle errors in JSON
 def json_error(ex):

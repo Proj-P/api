@@ -29,13 +29,15 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'Flask==0.10.1',
+        'gevent==1.1.1',
+        'Flask==0.11',
+        'Flask-SocketIO==2.4',
         'Flask-SQLAlchemy==2.1',
         'Flask-WTF==0.12',
         'itsdangerous==0.24',
         'MarkupSafe==0.23',
         'SQLAlchemy==1.0.12',
-        'Werkzeug==0.11.8',
+        'Werkzeug==0.11.10',
         'WTForms==2.1'
     ],
     entry_points = {

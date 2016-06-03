@@ -10,4 +10,3 @@ class JSONSerializer:
         so it can be used in jsonify.
         """
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-

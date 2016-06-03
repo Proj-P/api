@@ -52,10 +52,10 @@ def all():
 def recent():
     """Get all visits from the past day"""
     interval = datetime.now() - timedelta(days=1)
-    visits = Visit.query                          \
-            .filter(Visit.start_time >= interval) \
-            .order_by(Visit.start_time)           \
-            .all()
+    visits = Visit.query                      \
+        .filter(Visit.start_time >= interval) \
+        .order_by(Visit.start_time)           \
+        .all()
     visits = [visit.serialize() for visit in visits]
 
     return jsonify(data=visits)

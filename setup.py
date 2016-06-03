@@ -41,7 +41,7 @@ setup(
         'Flask-Cors==2.1.2',
         'WTForms==2.1'
     ],
-    entry_points = {
+    entry_points={
         'console_scripts': [
             'pp-run-server = api.run:main',
             'pp-generate-token = scripts.generate_token:main'

@@ -42,7 +42,6 @@ def update():
     location.occupied = not location.occupied
     db.session.commit()
 
-    socketio.emit('location', {'occupied': location.occupied}, broadcast=True,
-                  namespace='/ws')
+    socketio.emit('location', location.serialize(), broadcast=True, namespace='/ws')
 
     return jsonify(), 204

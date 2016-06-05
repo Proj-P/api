@@ -30,14 +30,14 @@ setup(
     include_package_data=True,
     install_requires=[
         'gevent==1.1.1',
-        'Flask==0.11',
+        'Flask==0.10.1',
         'Flask-SocketIO==2.4',
         'Flask-SQLAlchemy==2.1',
         'Flask-WTF==0.12',
         'itsdangerous==0.24',
         'MarkupSafe==0.23',
         'SQLAlchemy==1.0.12',
-        'Werkzeug==0.11.10',
+        'Werkzeug==0.11.8',
         'Flask-Cors==2.1.2',
         'WTForms==2.1'
     ],

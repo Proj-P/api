@@ -42,6 +42,8 @@ def update():
     location.occupied = not location.occupied
     db.session.commit()
 
-    socketio.emit('location', location.serialize(), broadcast=True, namespace='/ws')
+    # Datetime objects aren't serializeable outside of jsonify
+    location.changed_at = str(location.changed_at)
+    socketio.emit('location', {'location': location.serialize()}, broadcast=True)
 
     return jsonify(), 204

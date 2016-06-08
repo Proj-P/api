@@ -34,8 +34,7 @@ def insert():
     db.session.add(visit)
     db.session.commit()
 
-    socketio.emit('visit', {'visit': visit.serialize()}, broadcast=True,
-                  namespace='/ws')
+    socketio.emit('visit', {'visit': visit.serialize()}, broadcast=True)
 
     return jsonify(), 201, {'Location': '/visits/' + str(visit.id)}
 

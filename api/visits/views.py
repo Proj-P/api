@@ -34,6 +34,9 @@ def insert():
     db.session.add(visit)
     db.session.commit()
 
+    # Serialize datetime objects since they wont do it themselves
+    visit.start_time = str(visit.start_time)
+    visit.end_time = str(visit.end_time)
     socketio.emit('visit', {'visit': visit.serialize()}, broadcast=True)
 
     return jsonify(), 201, {'Location': '/visits/' + str(visit.id)}

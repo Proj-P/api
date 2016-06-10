@@ -3,6 +3,7 @@
 # Use of this source code is governed by a MIT-style license that can be found
 # in the LICENSE file.
 
+from flask.json import dumps
 from flask import jsonify, Blueprint, abort, request
 from .models import Location
 from api.tokens.models import Token
@@ -42,8 +43,7 @@ def update():
     location.occupied = not location.occupied
     db.session.commit()
 
-    # Datetime objects aren't serializeable outside of jsonify
-    location.changed_at = str(location.changed_at)
-    socketio.emit('location', {'location': location.serialize()}, broadcast=True)
+    socketio.emit('location', {'location': dumps(location.serialize())},
+                  broadcast=True)
 
     return jsonify(), 204

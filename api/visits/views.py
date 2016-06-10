@@ -3,6 +3,7 @@
 # Use of this source code is governed by a MIT-style license that can be found
 # in the LICENSE file.
 
+from flask.json import dumps
 from flask import jsonify, Blueprint, abort, request
 from datetime import datetime, timedelta
 from api import db, socketio
@@ -32,12 +33,13 @@ def insert():
     visit = Visit(request.form.get('start_time'), request.form.get('end_time'),
                   location.id)
     db.session.add(visit)
-    db.session.commit()
 
-    # Serialize datetime objects since they wont do it themselves
-    visit.start_time = str(visit.start_time)
-    visit.end_time = str(visit.end_time)
-    socketio.emit('visit', {'visit': visit.serialize()}, broadcast=True)
+    socketio.emit('visit', {'visit': dumps(visit.serialize())}, broadcast=True)
+
+    # Recalculate{'vera{'v
+    location.calculate_average()
+
+    db.session.commit()
 
     return jsonify(), 201, {'Location': '/visits/' + str(visit.id)}
 

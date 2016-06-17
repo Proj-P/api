@@ -6,6 +6,7 @@
 from flask.json import dumps
 from flask import jsonify, Blueprint, abort, request
 from .models import Location
+from api.visits.models import Visit
 from api.tokens.models import Token
 from api.auth import requires_auth
 from api import db, socketio
@@ -29,6 +30,18 @@ def status(location_id):
         return jsonify(data=location.serialize())
 
     abort(404, 'Location {} not found.'.format(location_id))
+
+@locations.route('/<int:location_id>/visits')
+def visits(location_id):
+    """Get a location"""
+    visits = Visit.query.filter_by(location_id=location_id).all()
+    visits = [visit.serialize() for visit in visits]
+
+    if visits:
+        return jsonify(data=visits)
+
+    abort(404, 'No visits found.')
+
 
 @locations.route('/toggle', methods=['PUT'])
 @requires_auth

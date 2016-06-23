@@ -36,7 +36,7 @@ def insert():
 
     socketio.emit('visit', {'visit': dumps(visit.serialize())}, broadcast=True)
 
-    # Recalculate{'vera{'v
+    # Recalculate average
     location.calculate_average()
 
     db.session.commit()

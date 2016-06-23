@@ -7,9 +7,11 @@ from flask.json import dumps
 from flask import jsonify, Blueprint, abort, request
 from .models import Location
 from api.visits.models import Visit
+from api.visits.forms import DateForm
 from api.tokens.models import Token
 from api.auth import requires_auth
 from api import db, socketio
+from werkzeug.datastructures import MultiDict
 
 locations = Blueprint('locations', __name__)
 
@@ -33,7 +35,7 @@ def status(location_id):
 
 @locations.route('/<int:location_id>/visits')
 def visits(location_id):
-    """Get a location"""
+    """Get all visits by location id"""
     visits = Visit.query.filter_by(location_id=location_id).all()
     visits = [visit.serialize() for visit in visits]
 
@@ -42,6 +44,22 @@ def visits(location_id):
 
     abort(404, 'No visits found.')
 
+@locations.route('/<int:location_id>/visits/<start>/<end>')
+def visits_range(location_id, start, end):
+    """Get all visits by location id in a certain period"""
+    form = DateForm(MultiDict(request.view_args))
+
+    if not form.validate():
+        return jsonify(errors=form.errors), 400
+
+    visits = Visit.query                              \
+        .filter_by(location_id=location_id)           \
+        .filter(Visit.start_time.between(start, end)) \
+        .order_by(Visit.start_time)                   \
+        .all()
+    visits = [visit.serialize() for visit in visits]
+
+    return jsonify(data=visits)
 
 @locations.route('/toggle', methods=['PUT'])
 @requires_auth

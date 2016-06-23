@@ -10,7 +10,7 @@ from api import db, socketio
 from api.auth import requires_auth
 from api.locations.models import Location
 from .models import Visit
-from .forms import VisitForm
+from .forms import VisitForm, DateForm
 
 visits = Blueprint('visits', __name__)
 
@@ -63,6 +63,23 @@ def recent():
     visits = [visit.serialize() for visit in visits]
 
     return jsonify(data=visits)
+
+@visits.route('/<start>/<end>')
+def visits_range(location_id, start, end):
+    """Get all visits by a certain period"""
+    form = DateForm(MultiDict(request.view_args))
+
+    if not form.validate():
+        return jsonify(errors=form.errors), 400
+
+    visits = Visit.query                              \
+        .filter(Visit.start_time.between(start, end)) \
+        .order_by(Visit.start_time)                   \
+        .all()
+    visits = [visit.serialize() for visit in visits]
+
+    return jsonify(data=visits)
+
 
 @visits.route('/<int:id>')
 def visit(id):

@@ -4,9 +4,13 @@
 # in the LICENSE file.
 
 from flask_wtf import Form
-from wtforms import IntegerField
+from wtforms import IntegerField, DateField
 from wtforms.validators import InputRequired
 
 class VisitForm(Form):
     start_time = IntegerField('start_time', [InputRequired()])
     end_time = IntegerField('end_time', [InputRequired()])
+
+class DateForm(Form):
+    start = DateField('start', [InputRequired()])
+    end = DateField('end', [InputRequired()])

@@ -8,9 +8,9 @@ database. This is a standalone API, meaning that it does not do any logic such
 as detecting toilet usage. It simply manages the data it receives from the
 toilet detector service.
 
-## Routes
-### Locations
-#### Get all locations
+# Routes
+## Locations
+### Get all locations
 `GET /locations`
 
 ##### Response
@@ -40,7 +40,7 @@ Content-Type: application/json
 }
 ```
 
-#### Get a location
+### Get a location
 `GET /locations/:location_id`
 
 ##### Response
@@ -61,7 +61,7 @@ Content-Type: application/json
 }
 ```
 
-#### Get all visits by location
+### Get all visits by location
 `GET /locations/:location_id/visits`
 
 ##### Response
@@ -91,7 +91,7 @@ Content-Type: application/json
 }
 ```
 
-#### Get all visits by location id in a certain period
+### Get all visits by location id in a certain period
 `GET /locations/:location_id/visits/:from/:to`
 
 ##### Response
@@ -121,7 +121,7 @@ Content-Type: application/json
 }
 ```
 
-#### Toggle the status of a location
+### Toggle the status of a location
 `PUT /locations/:location_id/toggle`
 
 ##### Response
@@ -130,8 +130,8 @@ Status: 204 No Content
 Content-Type: application/json
 ```
 
-### Visits
-#### Insert a visit
+## Visits
+### Insert a visit
 `POST /visits`
 
 ##### Parameters
@@ -146,7 +146,7 @@ Status: 201 Created
 Content-Type: application/json
 ```
 
-#### Get all visits
+### Get all visits
 `GET /visits`
 
 ##### Response
@@ -176,7 +176,7 @@ Content-Type: application/json
 }
 ```
 
-#### Get a visit
+### Get a visit
 `GET /visits/:id`
 
 ##### Response
@@ -197,7 +197,7 @@ Content-Type: application/json
 }
 ```
 
-#### Get all visits in a certain period
+### Get all visits in a certain period
 `GET /visits/:from/:to`
 
 ##### Response
@@ -227,7 +227,7 @@ Content-Type: application/json
 }
 ```
 
-#### Get all visits from the past day
+### Get all visits from the past day
 `GET /visits/recent`
 
 ##### Response

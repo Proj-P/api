@@ -9,5 +9,5 @@ as detecting toilet usage. It simply manages the data it receives from the
 toilet detector service.
 
 # API Documentation
-See [the wiki](https://github.com/Proj-P/project-p-api/wiki/API-Routes) for a
+See [the wiki](https://github.com/Proj-P/project-p-api/wiki) for a
 description of all available routes.

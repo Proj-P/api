@@ -34,7 +34,7 @@ def insert():
                   location.id)
     db.session.add(visit)
 
-    socketio.emit('visit', {'data': dumps(visit.serialize())}, broadcast=True)
+    socketio.emit('visit', dumps(visit.serialize()), broadcast=True)
 
     # Recalculate average
     location.calculate_average()

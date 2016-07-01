@@ -74,7 +74,7 @@ def update():
     location.occupied = not location.occupied
     db.session.commit()
 
-    socketio.emit('location', {'data': dumps(location.serialize())},
+    socketio.emit('location', dumps(location.serialize()),
                   broadcast=True)
 
     return jsonify(), 204

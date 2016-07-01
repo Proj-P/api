@@ -3,6 +3,7 @@
 # Use of this source code is governed by a MIT-style license that can be found
 # in the LICENSE file.
 
+from json import loads
 from flask.json import dumps
 from flask import jsonify, Blueprint, abort, request
 from .models import Location
@@ -74,7 +75,7 @@ def update():
     location.occupied = not location.occupied
     db.session.commit()
 
-    socketio.emit('location', dumps(location.serialize()),
+    socketio.emit('location', {'data': loads(dumps(location.serialize()))},
                   broadcast=True)
 
     return jsonify(), 204

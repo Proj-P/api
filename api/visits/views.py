@@ -3,6 +3,7 @@
 # Use of this source code is governed by a MIT-style license that can be found
 # in the LICENSE file.
 
+from json import loads
 from flask.json import dumps
 from flask import jsonify, Blueprint, abort, request
 from datetime import datetime, timedelta
@@ -34,7 +35,8 @@ def insert():
                   location.id)
     db.session.add(visit)
 
-    socketio.emit('visit', dumps(visit.serialize()), broadcast=True)
+    socketio.emit('visit', {'data': loads(dumps(visit.serialize()))},
+                  broadcast=True)
 
     # Recalculate average
     location.calculate_average()

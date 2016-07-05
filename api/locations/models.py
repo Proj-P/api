@@ -14,7 +14,7 @@ class Location(db.Model, JSONSerializer):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     occupied = db.Column(db.Boolean, nullable=False, default=False)
-    changed_at = db.Column(db.DateTime, default=None, onupdate=datetime.now())
+    changed_at = db.Column(db.DateTime, default=None, onupdate=datetime.now)
     average_duration = db.Column(db.Integer, default=0)
 
     token = db.relationship('Token', backref='locations', uselist=False)

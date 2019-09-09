@@ -1,1 +1,9 @@
+sqlalchemy
+werkzeug
+flask
+flask_cors
+flask_sqlalchemy
+flask-socketio
+flask_wtf
+wtforms
 -e .

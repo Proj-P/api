@@ -14,10 +14,11 @@ file if you want it to send data.
 
 import argparse
 import sys
-from api import db
-from api.tokens.models import Token
-from api.locations.models import Location
+from projectp import db
+from projectp.tokens.models import Token
+from projectp.locations.models import Location
 from sqlalchemy.exc import IntegrityError
+
 
 def generate_token(name):
     # First create a location
@@ -40,6 +41,7 @@ def generate_token(name):
 
     return location
 
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('name', type=str,
@@ -56,6 +58,7 @@ Token: {}
 Dont forget to save this token in the sensor's configuration file.
 ================================='''.format(location.name,
                                             location.token.hash))
+
 
 if __name__ == '__main__':
     main()

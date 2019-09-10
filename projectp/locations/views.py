@@ -1,8 +1,9 @@
-import flask_socketio
 from flask import jsonify, Blueprint, request, json
 from werkzeug.datastructures import MultiDict
 
-from projectp import db, socketio
+from projectp import socketio
+
+from projectp import db
 from projectp.auth import requires_auth
 from projectp.visits.forms import DateForm
 from projectp.visits.models import Visit
@@ -62,28 +63,9 @@ def visits_range(location_id, start, end):
     return jsonify(visits.serialize_list())
 
 
-# @locations.route('/toggle', methods=['PUT'])
-# @requires_auth
-# def update():
-#     """Toggle the status of a location"""
-#     hash = request.headers.get('authorization')
-#     location = Location.query \
-#         .join(Location.token) \
-#         .filter_by(hash=hash) \
-#         .first()
-#
-#     location.occupied = not location.occupied
-#     db.session.commit()
-#
-#     flask_socketio.emit('location', json.dumps(location.serialize()),
-#                         broadcast=True)
-#
-#     return jsonify(message='Location {} updated succesfully.'.format(location.id), code=204), 204
-
-
 @locations.route('/status', methods=['PUT'])
 @requires_auth
-def update():
+def set_status():
     """Set the status of a location"""
     occupied = request.form.get('occupied')
 
@@ -101,8 +83,9 @@ def update():
 
     db.session.commit()
 
-    socketio.emit('location', jsonify(location.serialize()),
-                        broadcast=True)
+    i = location.serialize()
+    socketio.emit('location', json.dumps(i), broadcast=True)
+    # socketio.emit('test', json.dumps(i), broadcast=True, room='test')
 
     return jsonify(message='Location {} updated succesfully.'.format(location.id), code=200, location=location.serialize()), 200
 

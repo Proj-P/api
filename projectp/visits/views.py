@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from flask import jsonify, Blueprint, request, render_template
+from flask import jsonify, Blueprint, request
 from werkzeug.datastructures import MultiDict
 
 from projectp import db, socketio

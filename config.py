@@ -2,7 +2,7 @@ import os
 
 
 class Config(object):
-    DEBUG = True
+    DEBUG = False
     # WTF_CSRF_ENABLED = False
     DATABASE_NAME = "projectp"
 

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Blueprint
+from flask import Flask, jsonify, Blueprint, render_template
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -10,7 +10,7 @@ app.config.from_object(config['development'])
 
 CORS(app)
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='eventlet', cors_allowed_origins='*')
 
 # DB setup
 db = SQLAlchemy(app)
@@ -30,8 +30,7 @@ db.create_all()
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
-
+    return render_template('index.html')
 
 # Some error handling
 @errors.app_errorhandler(Exception)
@@ -81,5 +80,9 @@ def error500(e):
     return "500 Internal server error", 500
 
 
+@socketio.on('connect')
+def connect():
+    print('connected SocketIO client')
+
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0')
+    socketio.run(app, host='0.0.0.0', debug=True)

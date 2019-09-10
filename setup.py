@@ -22,7 +22,6 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'pp-run-server = projectp.run:main',
             'pp-generate-token = script.generate_token:main'
         ]
     }

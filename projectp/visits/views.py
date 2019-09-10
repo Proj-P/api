@@ -35,7 +35,7 @@ def insert():
             .filter_by(hash=hash.replace('Bearer ', '')) \
             .first()
 
-        visit = Visit(request.form['start_time'], request.form['end_time'], location.id)
+        visit = Visit(request.form.get('start_time'), request.form.get('end_time'), location.id)
 
         db.session.add(visit)
 

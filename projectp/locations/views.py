@@ -85,7 +85,7 @@ def visits_range(location_id, start, end):
 @requires_auth
 def update():
     """Set the status of a location"""
-    occupied = request.form['occupied']
+    occupied = request.form.get('occupied')
 
     if occupied not in ['true', 'false']:
         return jsonify(message='Occupied should be either true or false, not {}.'.format(occupied), code=400), 400

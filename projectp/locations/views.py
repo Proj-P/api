@@ -85,7 +85,6 @@ def set_status():
 
     i = location.serialize()
     socketio.emit('location', json.dumps(i), broadcast=True)
-    # socketio.emit('test', json.dumps(i), broadcast=True, room='test')
 
     return jsonify(message='Location {} updated succesfully.'.format(location.id), code=200, location=location.serialize()), 200
 

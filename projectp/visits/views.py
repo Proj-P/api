@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from flask import jsonify, Blueprint, request
+from flask import jsonify, Blueprint, request, json
 from werkzeug.datastructures import MultiDict
 
 from projectp import db, socketio
@@ -39,7 +39,8 @@ def insert():
 
         db.session.add(visit)
 
-        socketio.emit('visit', jsonify(visit.serialize()), broadcast=True)
+        i = visit.serialize()
+        socketio.emit('visit', json.dumps(i), broadcast=True)
 
         # Recalculate average
         location.calculate_average()

@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from config import config
 
-socketio = SocketIO(async_mode='eventlet', cors_allowed_origins='*', engineio_logger=True)
+socketio = SocketIO(cors_allowed_origins='*', engineio_logger=True)
 db = SQLAlchemy()
 
 

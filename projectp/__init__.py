@@ -5,20 +5,19 @@ from flask_cors import CORS
 from config import config
 
 socketio = SocketIO(cors_allowed_origins='*', engineio_logger=True)
-db = SQLAlchemy()
+
+app = Flask(__name__)
+app.url_map.strict_slashes = False
+app.config.from_object(config['development'])
+# DB setup
+db = SQLAlchemy(app)
 
 
 def create_app(debug=False):
     """Create the application"""
-    app = Flask(__name__)
     app.debug = debug
-    app.url_map.strict_slashes = False
-    app.config.from_object(config['development'])
 
     CORS(app)
-
-    # DB setup
-    db = SQLAlchemy(app)
 
     # db is defined, we can register blueprints now
     from projectp.locations import locations

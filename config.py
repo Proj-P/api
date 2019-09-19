@@ -12,7 +12,7 @@ class Config(object):
     # Database (sqlite) configuration
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
     DATABASE_CONNECT_OPTIONS = {}
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevelopmentConfig(Config):

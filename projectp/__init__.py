@@ -54,7 +54,9 @@ def create_app(debug=False):
     app.register_blueprint(visits, url_prefix='/visits')
 
     # Create tables
-    db.create_all()
+    with app.app_context():
+        db.create_all()
+        db.session.commit()
 
     socketio.init_app(app)
     return app
